@@ -2,6 +2,13 @@ const express = require("express");
 let authRouter = express.Router();
 
 
+
+require("./../Models/userModel");
+let mongoose =require("mongoose");
+let userModel =mongoose.model("User");
+
+
+
 authRouter.get("/login",(request,response)=>{
     response.send("/login get");
 });
