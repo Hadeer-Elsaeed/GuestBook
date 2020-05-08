@@ -19,7 +19,24 @@ messageRouter.get("/add",(request,response)=>{
 });
 //add "post"
 messageRouter.post("/add",(request,response)=>{
-    response.send("post add");
+    console.log(request.body);
+
+    var msgObj = new messageModel({
+           title:request.body.title,
+           msgbody:request.body.body,
+        //    user:request.session.name,
+           reply:request.body.reply
+         });
+         msgObj.save()    
+        .then((data)=>{
+            // response.redirect("list")
+            response.send("msg added");
+    
+        })
+        .catch((error)=>{
+            console.log(error+"");
+        })
+    // response.send("post add");
        
 });
 // edit "get"

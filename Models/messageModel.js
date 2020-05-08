@@ -11,8 +11,8 @@ autoIncrement.initialize(connection);
 
 let messageSchema = Joi.object({
     _id: Joi.number().positive(),
+    title: Joi.string().max(255),
     msgbody: Joi.string().required().max(255),
-    msgdate: Joi.date(),
     user: {type: Number,ref: 'User'},
     reply: [{type: Number, ref: 'Replay'}]
   })
