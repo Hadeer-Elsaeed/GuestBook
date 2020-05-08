@@ -15,8 +15,25 @@ authRouter.get("/login",(request,response)=>{
 
 authRouter.post("/login",(request,response)=>{
   
-    response.send("in /login post");
-    console.log("login post");
+    userModel.findOne({ $and:[{username:request.body.userName},{password:request.body.Password}]})
+    .then((data)=>{
+        console.log(data);
+        if(data !=null)
+        {
+            // request.session.userName = request.body.username;
+             response.send("/profile");
+           }
+           else{
+            response.send("/login");
+           }
+         }
+    )
+    .catch((error)=>{
+        response.send("/login");
+        console.log(error+"you must register");
+        
+    })
+
      
 });
 
