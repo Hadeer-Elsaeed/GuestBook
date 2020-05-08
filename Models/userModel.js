@@ -7,7 +7,7 @@ const Joi = require('@hapi/joi');
 var userSchema = Joi.object({
     _id: Joi.number().positive(),
     username: Joi.string().required(),
-    password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+    password: Joi.string().required(),
     email: Joi.string().email().required(),
     phone: Joi.string().regex(/^\d{3}\d{4}\d{4}$/).required(),
     birthyear: Joi.number().integer().min(1900).max(2013),

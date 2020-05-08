@@ -1,7 +1,7 @@
 const express = require("express");
 let authRouter = express.Router();
 const gravatar = require('gravatar');
-
+const bcrypt = require('bcrypt');
 
 
 
@@ -15,28 +15,26 @@ authRouter.get("/login",(request,response)=>{
     response.send("/login get");
 });
 
-authRouter.post("/login",(request,response)=>{
-  
-    userModel.findOne({ $and:[{email:request.body.Email},{password:request.body.Password}]})
-    .then((data)=>{
-        console.log(data);
-        if(data !=null)
-        {
-            // request.session.userName = request.body.username;
-             response.send("/profile");
-           }
-           else{
-            response.send("/login");
-           }
-         }
-    )
-    .catch((error)=>{
-        response.send("/login");
-        console.log(error+"you must register");
-        
-    })
+authRouter.post("/login",async (request,response)=>{
 
-     
+  try {
+        let user = await userModel.findOne({email:request.body.Email})
+        if (!user){
+            console.log("There is no account with this email");
+        }
+        const isMatch = await bcrypt.compare(request.body.Password,user.password);
+        if(isMatch)
+        {
+            response.send("/profile");
+        }
+        else{
+            response.send("/login");
+            console.log("Invalid Password")
+        }
+  
+ } catch (err){
+      console.error(err.message);
+  }
 });
 
 
@@ -46,33 +44,31 @@ authRouter.get("/register",(request,response)=>{
     
 });
 
-authRouter.post("/register",(request,response)=>{
+authRouter.post("/register",async (request,response)=>{
     console.log(request.body);
-
+    const salt = await bcrypt.genSalt(10);
+    const password = await bcrypt.hash(request.body.Password, salt); 
     const email = request.body.Email;
     const avatar = gravatar.url(email, {s: '200', r: 'pg', d: 'mm'});
-    console.log(avatar);
-    var userObj = new userModel({
-        _id: request.body._id,
-        username: request.body.userName,
-        password: request.body.Password,
-        email,
-        phone: request.body.Phone,
-        birthyear: request.body.Birthyear,
-        // photo :request.body.photo
-        avatar
-    
-    }).save()
-    .then((data)=>{
-        response.send("authorization/login");
-        console.log("success registration");
+   
+    try {
+        var userObj = new userModel({
+            _id: request.body._id,
+            username: request.body.userName,
+            password,
+            email,
+            phone: request.body.Phone,
+            birthyear: request.body.Birthyear,
+            // photo :request.body.photo
+            avatar
+        });
+        await userObj.save();
 
-    })
-    .catch((error)=>{
-        response.send("authorization/registration");
-        console.log("error in registration")
-        console.log(error+"");
-    })
+
+    } catch (err){
+        console.error(err.message);
+    }
+
    
     
 });
