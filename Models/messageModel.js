@@ -13,8 +13,14 @@ let messageSchema = Joi.object({
     _id: Joi.number().positive(),
     title: Joi.string().max(255),
     msgbody: Joi.string().required().max(255),
-    user: {type: Number,ref: 'User'},
-    reply: [{type: Number, ref: 'Replay'}]
+    reply: Joi.array().
+    items({
+      replymsg: Joi.string(),
+      user: Joi.string().meta({
+        _mongoose: {  ref: "User" }
+      })
+    })
+  
   })
    
  let Message = new Schema(Joigoose.convert(messageSchema));

@@ -3,54 +3,84 @@ let messageRouter = express.Router();
 
 
 require("./../Models/messageModel");
+require("./../Models/userModel");
+
 let mongoose =require("mongoose");
 let messageModel =mongoose.model("Message");
- 
+let userModel =mongoose.model("User");
 
-//list "get"
+ /*-------------------------------------------------*/ 
+
 messageRouter.get("/list",(request,response)=>{
-    response.send("list");
-
-});
-//add "get"
-messageRouter.get("/add",(request,response)=>{
-    response.send("get add");
-   
-});
-//add "post"
-messageRouter.post("/add",(request,response)=>{
-    console.log(request.body);
-
-    var msgObj = new messageModel({
-           title:request.body.title,
-           msgbody:request.body.body,
-        //    user:request.session.name,
-           reply:request.body.reply
-         });
-         msgObj.save()    
+    messageModel.find({})
         .then((data)=>{
-            // response.redirect("list")
-            response.send("msg added");
-    
+            response.send(data);
         })
         .catch((error)=>{
             console.log(error+"");
         })
-    // response.send("post add");
-       
 });
-// edit "get"
+
+
+
+messageRouter.get("/add",(request,response)=>{
+    response.send("get add");
+   
+});
+
+messageRouter.post("/add",(request,response)=>{
+    // console.log(request.body);
+    var msgObj = new messageModel({
+           title:request.body.title,
+           msgbody:request.body.msgbody,
+         });
+         msgObj.save()    
+        .then((data)=>{
+            response.redirect("list")
+    
+        })
+        .catch((error)=>{
+            console.log(error+"");
+        })       
+});
+
+messageRouter.post("/addreply/:id",(request,response)=>{
+     messageModel.findById(request.params.id)
+    .then((data)=>{
+        console.log(data.reply);
+        var txt = {
+            replymsg: request.body.replymsg,
+            user: request.body.username
+        }
+        data.reply.unshift(txt);
+        data.save()
+
+    })
+    .catch((error)=>{
+        console.log(error+"");
+    })
+     
+});
+
+
+
 messageRouter.get("/edit/:id",(request,response)=>{
-    response.send(" get edit ");
-    });
-//edit "post"
+    
+});
+
 messageRouter.post("/edit",(request,response)=>{
     response.send("post edit");
 
 });
-//"delete"
-messageRouter.get("/delete/:id",(request,response)=>{
-    response.send("delete");
-});
 
+
+messageRouter.get("/delete/:id",(request,response)=>{
+    messageModel.deleteOne({_id:request.params._id})
+    .then((data)=>{
+        response.send("Done");
+    })
+    .catch((error)=>{
+        console.log(error+"");
+    })
+});
 module.exports=messageRouter;
