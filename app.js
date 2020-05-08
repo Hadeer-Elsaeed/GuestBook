@@ -2,8 +2,10 @@ let express = require('express');
 let app = express();
 let path=require('path');
 let morgan = require('morgan');
-let authRouter = require('./Routers/AuthenticationRouter');
 
+
+let authRouter = require('./Routers/AuthenticationRouter');
+let messageRouter = require('./Routers/MessageRouter');
 
 /*------------------------------------------------*/
 //connect to server nodejs
@@ -18,3 +20,4 @@ app.listen(port,()=>{
 app.use(morgan("dev"));
 
 app.use(authRouter);
+app.use("/messages",messageRouter);
