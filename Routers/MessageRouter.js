@@ -2,6 +2,11 @@ const express = require("express");
 let messageRouter = express.Router();
 
 
+require("./../Models/messageModel");
+let mongoose =require("mongoose");
+let messageModel =mongoose.model("Message");
+ 
+
 //list "get"
 messageRouter.get("/list",(request,response)=>{
     response.send("list");
