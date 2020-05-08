@@ -2,6 +2,7 @@ let express = require('express');
 let app = express();
 let path=require('path');
 let morgan = require('morgan');
+let authRouter = require('./Routers/AuthenticationRouter');
 
 
 /*------------------------------------------------*/
@@ -16,4 +17,4 @@ app.listen(port,()=>{
 //Middleware
 app.use(morgan("dev"));
 
-
+app.use(authRouter);
