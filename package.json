@@ -20,6 +20,7 @@
     "express": "^4.17.1",
     "joigoose": "^7.0.0",
     "mongoose": "^5.9.12",
+    "mongoose-auto-increment": "^5.0.1",
     "morgan": "^1.10.0"
   }
 }
