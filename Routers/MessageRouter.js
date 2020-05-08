@@ -44,23 +44,6 @@ messageRouter.post("/add",(request,response)=>{
         })       
 });
 
-messageRouter.post("/addreply/:id",(request,response)=>{
-     messageModel.findById(request.params.id)
-    .then((data)=>{
-        console.log(data.reply);
-        var txt = {
-            replymsg: request.body.replymsg,
-            user: request.body.username
-        }
-        data.reply.unshift(txt);
-        data.save()
-
-    })
-    .catch((error)=>{
-        console.log(error+"");
-    })
-     
-});
 
 
 
@@ -68,9 +51,15 @@ messageRouter.get("/edit/:id",(request,response)=>{
     
 });
 
-messageRouter.post("/edit",(request,response)=>{
-    response.send("post edit");
-
+messageRouter.post("/edit/:id",(request,response)=>{
+    messageModel.findOneAndUpdate({_id: request.params.id},{$set: request.body})
+    .then((data)=>{
+        response.send("done edit");
+    })
+    .catch((error)=>{
+        console.log(error+"");
+   })
+ 
 });
 
 
@@ -83,4 +72,42 @@ messageRouter.get("/delete/:id",(request,response)=>{
         console.log(error+"");
     })
 });
+
+
+
+messageRouter.post("/addreply/:id",(request,response)=>{
+    messageModel.findById(request.params.id)
+   .then((data)=>{
+       console.log(data.reply);
+       var txt = {
+           replymsg: request.body.replymsg,
+           user: request.body.username
+       }
+       data.reply.unshift(txt);
+       data.save()
+
+   })
+   .catch((error)=>{
+       console.log(error+"");
+   })
+    
+});
+
+
+messageRouter.delete("/deletereply/:id/:reply_id",(request,response)=>{
+    
+    messageModel.findById(request.params.id)
+    .then((data)=>{
+        let out = data.reply.map(reply => reply._id===request.params.reply_id)
+        .indexOf(request.params.reply_id);
+         data.reply.splice(out-1,1);
+         data.save();
+    })
+    .catch((error)=>{
+
+    })
+   
+
+});
+
 module.exports=messageRouter;
