@@ -28,8 +28,27 @@ authRouter.get("/register",(request,response)=>{
 });
 
 authRouter.post("/register",(request,response)=>{
-    response.send("in /register post");
-    console.log("register post");
+    console.log(request.body);
+    var userObj = new userModel({
+        _id: request.body._id,
+        username: request.body.userName,
+        password: request.body.Password,
+        email: request.body.Email,
+        phone: request.body.Phone,
+        birthyear: request.body.Birthyear,
+        // photo :request.body.photo
+    
+    }).save()
+    .then((data)=>{
+        response.send("authorization/login");
+        console.log("success registration");
+
+    })
+    .catch((error)=>{
+        response.send("authorization/registration");
+        console.log("error in registration")
+        console.log(error+"");
+    })
    
     
 });
