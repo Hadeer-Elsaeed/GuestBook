@@ -15,7 +15,7 @@ authRouter.get("/login",(request,response)=>{
 
 authRouter.post("/login",(request,response)=>{
   
-    userModel.findOne({ $and:[{username:request.body.userName},{password:request.body.Password}]})
+    userModel.findOne({ $and:[{email:request.body.Email},{password:request.body.Password}]})
     .then((data)=>{
         console.log(data);
         if(data !=null)
