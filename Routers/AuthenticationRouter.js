@@ -1,5 +1,7 @@
 const express = require("express");
 let authRouter = express.Router();
+const gravatar = require('gravatar');
+
 
 
 
@@ -46,14 +48,19 @@ authRouter.get("/register",(request,response)=>{
 
 authRouter.post("/register",(request,response)=>{
     console.log(request.body);
+
+    const email = request.body.Email;
+    const avatar = gravatar.url(email, {s: '200', r: 'pg', d: 'mm'});
+    console.log(avatar);
     var userObj = new userModel({
         _id: request.body._id,
         username: request.body.userName,
         password: request.body.Password,
-        email: request.body.Email,
+        email,
         phone: request.body.Phone,
         birthyear: request.body.Birthyear,
         // photo :request.body.photo
+        avatar
     
     }).save()
     .then((data)=>{

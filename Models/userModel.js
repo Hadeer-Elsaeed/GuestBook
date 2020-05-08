@@ -11,7 +11,8 @@ var userSchema = Joi.object({
     email: Joi.string().email().required(),
     phone: Joi.string().regex(/^\d{3}\d{4}\d{4}$/).required(),
     birthyear: Joi.number().integer().min(1900).max(2013),
-    photo: Joi.string().max(255)
+    photo: Joi.string().max(255),
+    avatar: Joi.string()
   })
   
 var User = new Schema(Joigoose.convert(userSchema))
