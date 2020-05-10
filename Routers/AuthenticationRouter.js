@@ -25,11 +25,14 @@ authRouter.post("/login",async (request,response)=>{
         const isMatch = await bcrypt.compare(request.body.Password,user.password);
         if(isMatch)
         {
-            response.send("/profile");
+
+            response.json("/profile");
+            console.log("you are login ...")
         }
         else{
-            response.send("/login");
+            response.redirect("/login");
             console.log("Invalid Password")
+
         }
   
  } catch (err){
@@ -41,42 +44,49 @@ authRouter.post("/login",async (request,response)=>{
 // Registeration Router
 authRouter.get("/register",(request,response)=>{
     response.send("register get");
+    console.log("get register");
     
 });
 
-authRouter.post("/register",async (request,response)=>{
+authRouter.post("/register", (request, response) =>{
+
     console.log(request.body);
-    const salt = await bcrypt.genSalt(10);
-    const password = await bcrypt.hash(request.body.Password, salt); 
     const email = request.body.Email;
     const avatar = gravatar.url(email, {s: '200', r: 'pg', d: 'mm'});
-   
-    try {
-        var userObj = new userModel({
-            _id: request.body._id,
-            username: request.body.userName,
-            password,
-            email,
-            phone: request.body.Phone,
-            birthyear: request.body.Birthyear,
-            // photo :request.body.photo
-            avatar
-        });
-        await userObj.save();
+    bcrypt.hash(request.body.Password, 10, (err, encrypted) => {
+    request.body.Password = encrypted;
 
-
-    } catch (err){
-        console.error(err.message);
-    }
-
-   
+    var userObj = new userModel({
+        // _id: request.body._id,
+        username: request.body.Username,
+        password: request.body.Password,
+        email,
+        phone: request.body.Phone,
+        birthyear: request.body.Birthyear,
+        avatar
+        // photo :request.body.photo
     
+    }).save()
+    .then((data)=>{
+        response.send("authorization/login");
+        console.log("success registration");
+
+    })
+    .catch((error)=>{
+        response.send("authorization/registration");
+        console.log("error in registration")
+        console.log(error+"");
+    })
+
+})
 });
 
+  
+ 
 
 //logout Router        
 authRouter.get("/logout",(request,response)=>{
-    response.send("in /logout");
-    console.log("logout");
+    response.redirect("/login");
+
 });
 module.exports= authRouter;

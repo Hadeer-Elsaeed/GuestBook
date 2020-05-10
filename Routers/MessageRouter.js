@@ -31,8 +31,8 @@ messageRouter.get("/add",(request,response)=>{
 messageRouter.post("/add",(request,response)=>{
     // console.log(request.body);
     var msgObj = new messageModel({
-           title:request.body.title,
-           msgbody:request.body.msgbody,
+           title:request.body.Title,
+           msgbody:request.body.Msgbody,
          });
          msgObj.save()    
         .then((data)=>{
@@ -48,6 +48,10 @@ messageRouter.post("/add",(request,response)=>{
 
 
 messageRouter.get("/edit/:id",(request,response)=>{
+    messageModel.findById({_id:request.params.id})
+    .then((data)=>{
+        response.send(data);
+    })
     
 });
 
@@ -64,13 +68,12 @@ messageRouter.post("/edit/:id",(request,response)=>{
 
 
 messageRouter.get("/delete/:id",(request,response)=>{
-    messageModel.deleteOne({_id:request.params._id})
-    .then((data)=>{
+    messageModel.remove({
+        _id: request.params.id
+    }, (err, result) => {
         response.send("Done");
     })
-    .catch((error)=>{
-        console.log(error+"");
-    })
+   
 });
 
 
