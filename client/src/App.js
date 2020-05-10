@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import MessageApp from './components/MessageApp'
+
 
 import RegisterUser from './components/registeration-component'
 import LoginUser from './components/login-component'
 import AddMessage from './components/addmessage-component'
 import ListMessages from './components/listmessage-component'
+import MessageApp from './components/MessageApp'
+
 function App() {
   return (
     <Router>
@@ -16,7 +18,7 @@ function App() {
     </div>
 
    <Route exact path="/messages/add" component={AddMessage} />
-   {/* <Route component={MessageApp}/> */} 
+   <Route component={MessageApp}/> 
    <Route exact path="/messages/list" component={ListMessages} />
 
   
