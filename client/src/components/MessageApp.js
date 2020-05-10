@@ -58,7 +58,6 @@ class MessageApp extends Component {
         return (
             <div>
                 <BrowserRouter>
-                <Route exact path="/" component={() => <ListMessages deleteMessage={this.deleteMessage} mydata={this.state.Data} />} />
                     <Route exact path="/messages/list" component={() => <ListMessages  deleteMessage={this.deleteMessage} mydata={this.state.Data} />} />
                     {/* <Route exact path="/messages/edit" component={() => <EditMesssage  getEditData={this.getEditData} mydata={this.state.EditData} />} /> */}
 
