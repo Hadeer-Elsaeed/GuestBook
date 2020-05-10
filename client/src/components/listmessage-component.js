@@ -19,7 +19,7 @@ class ListMessages extends Component {
                     <div className="card border-info mb-3"  style={{width:500}}>
                     <div className="card-header bg-transparent border-info">{item.title}</div>
                     <div className="card-body text-dark">
-                        <h5 className="card-title">{item._id} </h5>
+                        <h5 className="card-title"> </h5>
                         <h5 className="card-text">{item.msgbody}</h5>
                     </div>
                     <div className="card-footer bg-transparent border-danger">
