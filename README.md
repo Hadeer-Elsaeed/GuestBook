@@ -11,60 +11,61 @@ Frontend ==> React
 In Database : 
 i use mongodb .. i connect server node js with server mongo...
 
-1- install "mongodb" package.
+- install "mongodb" package.
 
-2- install"mongoose" package.
+- install"mongoose" package.
 
-3- i also use "mongoose-auto-increment" package to make id of each schema autoincrement.
+- i also use "mongoose-auto-increment" package to make id of each schema autoincrement.
 
 /*--------------*/
 
 In Node JS : 
 
-1- i use "Express" package to make local server on port 8080 
+- i use "Express" package to make local server on port 8080 
 
-2- i use "morgan" middleware that return the status of request 
+- i use "morgan" middleware that return the status of request 
 
-3- i make the basic routes in folder Routers to add Auhentication Routers [/login - /register]
+- i make the basic routes in folder Routers to add Auhentication Routers [/login - /register]
 
-4- i make model of user to allow me to save data in mongodb 
+- i make model of user to allow me to save data in mongodb 
 
-5- in Models i use "joi" package to validate data of user[username - password - email - phone - birthyear].
+- in Models i use "joi" package to validate data of user[username - password - email - phone - birthyear].
 
-6- i use "encrypt" package to hash password of user before save it in database. 
+- i use "encrypt" package to hash password of user before save it in database. 
 
-7- i use "gravatar" package to add an avatar to user in registeration.
+- i use "gravatar" package to add an avatar to user in registeration.
 
-8- i use "body-parser" to parse data that sent from react. 
+- i use "body-parser" to parse data that sent from react. 
 
-9- i make the same in messages .. i make router for messages [/messages/add - /messages/edit- messages/list -messages/delete - /messages/addreply].. after this i made model of messages .
+- i make the same in messages .. i make router for messages [/messages/add - /messages/edit- messages/list -messages/delete - /messages/addreply].. after this i made model of messages .
 
-10- i use "POSTMAN" to test backend.
+- i use "POSTMAN" to test backend.
 
-11- i use "cors" package to connect with frontend
+- i use "cors" package to connect with frontend
 
 /*-----------------*/
 
 IN React :
 
-1- i make a folder inside myproject called it "client"
+- i make a folder inside myproject called it "client"
 
-2- inside the folder i make react application
+- inside the folder i make react application
 
-3- i use "Bootstrap CDN"
+- i use "Bootstrap CDN"
 
-4- i make folder components and add all components inside it 
+- i make folder components and add all components inside it 
 
-5- i use "react-router-dom" to use the Link
+- i use "react-router-dom" to use the Link
 
-6- i use "axios" package to fetch urls of backend to send and receive data.
+- i use "axios" package to fetch urls of backend to send and receive data.
 
-7- i use "jwt-decode" to make session for users.
+- i use "jwt-decode" to make session for users.
 
 
  /*------------------------------*/
 
 #To Run project
+
 - you must install npm and all packeges in file "package.json"
 
 - open mongodb server using command "mongod" and you may use "Robo3t" to show changes in    database .
