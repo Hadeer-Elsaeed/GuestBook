@@ -38,20 +38,21 @@ class MessageApp extends Component {
 
     }
 
-    getEditData=(msg_id)=>{
-        axios.get(`http://localhost:8080/messages/edit/${msg_id}`)
-        .then(res=>{
-            this.setState({
-                EditData:res.data
-            })
-        })
-    }
-    editMessage=(msg_id)=>{
-         axios.post(`http://localhost:8080/messages/edit/${msg_id}`)
-        .then(res=>{
-            this.geEdittData();
-        })
-    }
+    // getEditData=(msg_id)=>{
+    //     axios.get(`http://localhost:8080/messages/edit/${msg_id}`)
+    //     .then(res=>{
+    //         this.setState({
+    //             EditData:res.data
+    //         })
+    //     })
+    // }
+
+    // editMessage=(msg_id)=>{
+    //      axios.post(`http://localhost:8080/messages/edit/${msg_id}`)
+    //     .then(res=>{
+    //         this.geEdittData();
+    //     })
+    // }
     render() {
 
         return (
@@ -59,7 +60,7 @@ class MessageApp extends Component {
                 <BrowserRouter>
                 <Route exact path="/" component={() => <ListMessages deleteMessage={this.deleteMessage} mydata={this.state.Data} />} />
                     <Route exact path="/messages/list" component={() => <ListMessages  deleteMessage={this.deleteMessage} mydata={this.state.Data} />} />
-                    <Route exact path="/messages/edit" component={() => <EditMesssage  getEditData={this.getEditData} mydata={this.state.EditData} />} />
+                    {/* <Route exact path="/messages/edit" component={() => <EditMesssage  getEditData={this.getEditData} mydata={this.state.EditData} />} /> */}
 
                     <Route exact path="/AddMessage" component={AddMessage}/>
                 </BrowserRouter>
