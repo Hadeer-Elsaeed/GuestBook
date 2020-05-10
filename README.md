@@ -18,7 +18,8 @@ i use mongodb .. i connect server node js with server mongo...
 3- i also use "mongoose-auto-increment" package to make id of each schema autoincrement.
 
 /*--------------*/
- In Node JS : 
+
+In Node JS : 
 
 1- i use "Express" package to make local server on port 8080 
 
@@ -45,6 +46,7 @@ i use mongodb .. i connect server node js with server mongo...
 /*-----------------*/
 
 IN React :
+
 1- i make a folder inside myproject called it "client"
 
 2- inside the folder i make react application
@@ -61,15 +63,18 @@ IN React :
 
 
  /*------------------------------*/
- #To Run project
+
+#To Run project
 - you must install npm and all packeges in file "package.json"
 
-1- open mongodb server using command "mongod" and you may use "Robo3t" to show changes in    database .
+- open mongodb server using command "mongod" and you may use "Robo3t" to show changes in    database .
 
-2- open node server using command "nodemon app.js".
+- open node server using command "nodemon app.js".
 
-3- inside client folder open terminal and run command "npm start" to open server of react.
+- inside client folder open terminal and run command "npm start" to open server of react.
 
-4- react server automatically open url in browser ..Now , The application works.. 
+- react server automatically open url in browser ..Now , The application works.. 
+
 /*-------------------------------*/
+
 That is all "Hadeer Elsaeed" 
